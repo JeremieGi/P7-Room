@@ -2,6 +2,7 @@ package com.openclassrooms.arista.ui.exercise
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.openclassrooms.arista.MainApplication
 import com.openclassrooms.arista.domain.model.Exercise
 import com.openclassrooms.arista.domain.usecase.AddNewExerciseUseCase
 import com.openclassrooms.arista.domain.usecase.DeleteExerciseUseCase
@@ -24,9 +25,11 @@ class ExerciseViewModel @Inject constructor(
     private val _exercisesFlow = MutableStateFlow<List<Exercise>>(emptyList())
     val exercisesFlow: StateFlow<List<Exercise>> = _exercisesFlow.asStateFlow()
 
+
     init {
         loadAllExercises()
     }
+
 
     fun deleteExercise(exercise: Exercise) {
 
@@ -49,7 +52,7 @@ class ExerciseViewModel @Inject constructor(
     fun addNewExercise(exercise: Exercise) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            addNewExerciseUseCase.execute(exercise)
+            addNewExerciseUseCase.execute(exercise, MainApplication.ID_CURRENT_USER)
             loadAllExercises()
         }
 

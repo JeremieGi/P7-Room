@@ -7,7 +7,7 @@ import javax.inject.Inject
 class AddNewExerciseUseCase @Inject constructor(
     private val exerciseRepository: ExerciseRepository
 ) {
-    suspend fun execute(exercise: Exercise) {
-        exerciseRepository.addExercise(exercise)
+    suspend fun execute(exercise: Exercise, idUser : Long) {
+        exerciseRepository.addExercise(exercise,idUser)
     }
 }

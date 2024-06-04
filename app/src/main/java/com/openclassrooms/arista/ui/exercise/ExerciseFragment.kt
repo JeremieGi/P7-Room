@@ -34,20 +34,28 @@ class ExerciseFragment : Fragment(), DeleteExerciseInterface {
     private val viewModel: ExerciseViewModel by viewModels()
     private lateinit var exerciseAdapter: ExerciseAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
         _binding = FragmentExerciseBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
+
         setupRecyclerView()
         setupFab()
         observeExercises()
+
     }
 
     private fun setupRecyclerView() {

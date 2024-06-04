@@ -12,13 +12,15 @@ data class Exercise(
     var intensity: Int
 ) {
 
-    fun toDto(): ExerciseDto {
+    fun toDto(userId : Long): ExerciseDto {
+
         return ExerciseDto(
             id = this.id?:0,
             startTime = this.startTime.toEpochSecond(ZoneOffset.UTC)*1000,
             duration = this.duration,
             category = this.category.toString(),
-            intensity = this.intensity
+            intensity = this.intensity,
+            userId = userId
         )
     }
 

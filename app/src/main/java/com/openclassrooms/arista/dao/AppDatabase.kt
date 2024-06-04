@@ -39,6 +39,9 @@ abstract class AppDatabase : RoomDatabase() {
             val nIDUserTest = userDao.insertUser(
                     UserDto(sName="Jeremie", sEmail = "jg@free.fr", sPassword = "123")
             )
+            val nIDUserTest2 = userDao.insertUser(
+                UserDto(sName="Geraldine", sEmail = "gg@free.fr", sPassword = "123")
+            )
 
             sleepDao.insertSleep(
                 SleepDto(
@@ -55,6 +58,24 @@ abstract class AppDatabase : RoomDatabase() {
                     duration = 450,
                     quality = 3,
                     userId = nIDUserTest
+                )
+            )
+
+            sleepDao.insertSleep(
+                SleepDto(
+                    startTime = LocalDateTime.now().minusDays(1).atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                    duration = 60,
+                    quality = 1,
+                    userId = nIDUserTest2
+                )
+            )
+
+            sleepDao.insertSleep(
+                SleepDto(
+                    startTime = LocalDateTime.now().minusDays(2).atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
+                    duration = 120,
+                    quality = 1,
+                    userId = nIDUserTest2
                 )
             )
 

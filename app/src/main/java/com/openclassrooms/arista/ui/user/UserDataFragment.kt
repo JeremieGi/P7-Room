@@ -15,7 +15,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class UserDataFragment : Fragment() {
+
     private lateinit var binding: FragmentUserDataBinding
+
     private val viewModel: UserDataViewModel by viewModels()
 
     override fun onCreateView(
@@ -28,7 +30,10 @@ class UserDataFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
+        // Dans une coroutine, collecte du Flow
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.userFlow.collect { user: User? ->
                 user?.let {

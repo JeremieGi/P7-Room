@@ -38,6 +38,6 @@ data class ExerciseDto(
     var intensity: Int,
 
     @ColumnInfo(index = true)
-    var userId: Long = 0  // Clé étrangère
+    var userId: Long   // Clé étrangère
 
 )

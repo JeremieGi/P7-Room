@@ -7,17 +7,16 @@ import com.openclassrooms.arista.domain.model.Sleep
 import kotlinx.coroutines.flow.first
 
 class SleepRepository(
-    //private val apiService: FakeApiService = FakeApiService()
     private val sleepDAO: SleepDao
 ) {
 
     // Get all sleep records
-    //val allSleeps: List<Sleep> get() = apiService.getAllSleeps()
-
     suspend fun allSleeps(): List<Sleep> {
         return sleepDAO.getAllSleeps()
             .first() // Collect the first emission of the Flow
-            .map { Sleep.fromDto(it) } // Convert every DTO in Sleep // it est de type SleepDto ici
+            .map {
+                Sleep.fromDto(it) // Convert every DTO in Sleep // it est de type SleepDto ici
+            }
 
     }
 }

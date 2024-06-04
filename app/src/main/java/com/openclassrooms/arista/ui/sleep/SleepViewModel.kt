@@ -17,12 +17,15 @@ import javax.inject.Inject
 @HiltViewModel
 class SleepViewModel @Inject constructor(private val getAllSleepsUseCase: GetAllSleepsUseCase) :
     ViewModel() {
+
     private val _sleeps = MutableStateFlow<List<Sleep>>(emptyList())
     val sleeps: StateFlow<List<Sleep>> = _sleeps.asStateFlow()
 
     fun fetchSleeps() {
 
+        // Depuis une coroutine
         viewModelScope.launch(Dispatchers.IO) {
+            // Alimente le StateFlow
             val sleepList = getAllSleepsUseCase.execute()
             _sleeps.value = sleepList
         }
