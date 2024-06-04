@@ -5,7 +5,11 @@ import com.openclassrooms.arista.domain.model.Exercise
 import javax.inject.Inject
 
 class GetAllExercisesUseCase @Inject constructor(private val exerciseRepository: ExerciseRepository) {
-    fun execute(): List<Exercise> {
-        return exerciseRepository.allExercises
+//    fun execute(): List<Exercise> {
+//        return exerciseRepository.allExercises
+//    }
+
+    suspend fun execute(): List<Exercise> {
+        return exerciseRepository.getAllExercises()
     }
 }
