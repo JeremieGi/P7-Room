@@ -1,9 +1,8 @@
 package com.openclassrooms.arista.ui.sleep
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.openclassrooms.arista.MainApplication
 import com.openclassrooms.arista.domain.model.Sleep
 import com.openclassrooms.arista.domain.usecase.GetAllSleepsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,12 +20,15 @@ class SleepViewModel @Inject constructor(private val getAllSleepsUseCase: GetAll
     private val _sleeps = MutableStateFlow<List<Sleep>>(emptyList())
     val sleeps: StateFlow<List<Sleep>> = _sleeps.asStateFlow()
 
+    // On devrait normalement le récupérer via le bundle du fragment
+    val idCurrentUser = MainApplication.ID_CURRENT_USER
+
     fun fetchSleeps() {
 
         // Depuis une coroutine
         viewModelScope.launch(Dispatchers.IO) {
             // Alimente le StateFlow
-            val sleepList = getAllSleepsUseCase.execute()
+            val sleepList = getAllSleepsUseCase.execute(idCurrentUser)
             _sleeps.value = sleepList
         }
 

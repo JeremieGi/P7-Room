@@ -9,7 +9,8 @@ class GetAllSleepsUseCase @Inject constructor(private val sleepRepository: Sleep
 //        return sleepRepository.allSleeps
 //    }
 
-    suspend fun execute(): List<Sleep> {
-        return sleepRepository.allSleeps()
+    suspend fun execute(idUser : Long): List<Sleep> {
+        //return sleepRepository.allSleeps()
+        return sleepRepository.sleepsOfUser(idUser)
     }
 }

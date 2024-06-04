@@ -9,7 +9,8 @@ class GetAllExercisesUseCase @Inject constructor(private val exerciseRepository:
 //        return exerciseRepository.allExercises
 //    }
 
-    suspend fun execute(): List<Exercise> {
-        return exerciseRepository.getAllExercises()
+    suspend fun execute(idUser : Long): List<Exercise> {
+        //return exerciseRepository.getAllExercises()
+        return exerciseRepository.getExercisesOfUser(idUser)
     }
 }

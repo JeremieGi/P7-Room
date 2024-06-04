@@ -1,7 +1,6 @@
 package com.openclassrooms.arista.data.repository
 
 import com.openclassrooms.arista.dao.ExerciseDao
-import com.openclassrooms.arista.data.FakeApiService
 import com.openclassrooms.arista.domain.model.Exercise
 import kotlinx.coroutines.flow.first
 
@@ -9,14 +8,22 @@ class ExerciseRepository(
     private val exerciseDao : ExerciseDao
 ) {
 
-    // Get all exercises
-    suspend fun getAllExercises(): List<Exercise> {
-        return exerciseDao.getAllExercises()
+//    // Get all exercises
+//    suspend fun getAllExercises(): List<Exercise> {
+//        return exerciseDao.getAllExercises()
+//            .first() // Collect the first emission of the Flow
+//            .map {
+//                Exercise.fromDto(it)  // Convert every DTO in Exercise // it est de type ExerciseDto ici
+//            }
+//    }
+
+    // Get all exercises of one user
+    suspend fun getExercisesOfUser(idUser : Long): List<Exercise> {
+        return exerciseDao.getExercisesOfUser(idUser)
             .first() // Collect the first emission of the Flow
             .map {
                 Exercise.fromDto(it)  // Convert every DTO in Exercise // it est de type ExerciseDto ici
             }
-
     }
 
     // Add a new exercise

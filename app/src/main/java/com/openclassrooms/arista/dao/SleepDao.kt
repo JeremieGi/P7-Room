@@ -14,6 +14,9 @@ interface SleepDao {
     @Query("SELECT * FROM sleep")
     fun getAllSleeps(): Flow<List<SleepDto>>
 
+    @Query("SELECT * FROM sleep WHERE userId = :userId")
+    fun getSleepsOfUser(userId : Long): Flow<List<SleepDto>>
+
     @Query("DELETE FROM sleep WHERE id = :id")
     suspend fun deleteSleepById(id: Long)
 

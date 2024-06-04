@@ -14,6 +14,8 @@ interface ExerciseDao {
     @Query("SELECT * FROM exercise")
     fun getAllExercises(): Flow<List<ExerciseDto>>
 
+    @Query("SELECT * FROM exercise  WHERE userId = :idUser")
+    fun getExercisesOfUser(idUser : Long): Flow<List<ExerciseDto>>
 
     @Query("DELETE FROM exercise WHERE id = :id")
     suspend fun deleteExerciseById(id: Long)

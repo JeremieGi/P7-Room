@@ -25,6 +25,7 @@ class ExerciseViewModel @Inject constructor(
     private val _exercisesFlow = MutableStateFlow<List<Exercise>>(emptyList())
     val exercisesFlow: StateFlow<List<Exercise>> = _exercisesFlow.asStateFlow()
 
+    val idCurrentUser = MainApplication.ID_CURRENT_USER
 
     init {
         loadAllExercises()
@@ -43,7 +44,7 @@ class ExerciseViewModel @Inject constructor(
     private fun loadAllExercises() {
 
         viewModelScope.launch(Dispatchers.IO) {
-            val exercises = getAllExercisesUseCase.execute()
+            val exercises = getAllExercisesUseCase.execute(idCurrentUser)
             _exercisesFlow.value = exercises
         }
 
@@ -52,7 +53,7 @@ class ExerciseViewModel @Inject constructor(
     fun addNewExercise(exercise: Exercise) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            addNewExerciseUseCase.execute(exercise, MainApplication.ID_CURRENT_USER)
+            addNewExerciseUseCase.execute(exercise, idCurrentUser)
             loadAllExercises()
         }
 
