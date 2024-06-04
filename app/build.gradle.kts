@@ -66,12 +66,18 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    implementation("org.mockito:mockito-core:5.3.1")
+
 
     // Room
     val room_version = "2.6.0"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
+
+
 }
 kapt {
     correctErrorTypes = true
