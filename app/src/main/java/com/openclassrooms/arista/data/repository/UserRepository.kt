@@ -9,14 +9,6 @@ class UserRepository(
     private val userDao : UserDao
 ) {
 
-//    // Get the current user
-//    var user: User
-//        get() = apiService.user
-//        // Set or update the user
-//        set(user) {
-//            apiService.user = user
-//        }
-
     /**
      * Renvoie l'utilisateur à partir de son id
      */
