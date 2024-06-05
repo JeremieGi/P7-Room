@@ -25,19 +25,23 @@ class GetAllExercisesUseCaseTest {
 
     private lateinit var getAllExercisesUseCase: GetAllExercisesUseCase
 
+    private lateinit var closeable : AutoCloseable
+
     private val lIdUserTest : Long = 1
 
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        //MockitoAnnotations.initMocks(this)  DEPRECATED https://www.javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/MockitoAnnotations.html
+        closeable = MockitoAnnotations.openMocks(this)
         getAllExercisesUseCase = GetAllExercisesUseCase(exerciseRepository)
     }
 
 
     @After
     fun tearDown() {
-        Mockito.framework().clearInlineMocks()
+        //Mockito.framework().clearInlineMocks()
+        closeable.close()
     }
 
 
@@ -70,20 +74,19 @@ class GetAllExercisesUseCaseTest {
     }
 
 
-//    // TODO : A debogguer
-//    @Test
-//    fun emptyRepository() = runBlocking {
-//        // Arrange
-//        Mockito.`when`(exerciseRepository.getExercisesOfUser(lIdUserTest)).thenReturn(emptyList())
-//
-//
-//        // Act
-//        val result = getAllExercisesUseCase.execute(lIdUserTest)
-//
-//
-//        // Assert
-//        assertTrue(result.isEmpty())
-//    }
+    @Test
+    fun emptyRepository() = runBlocking {
+        // Arrange
+        Mockito.`when`(exerciseRepository.getExercisesOfUser(lIdUserTest)).thenReturn(emptyList())
+
+
+        // Act
+        val result = getAllExercisesUseCase.execute(lIdUserTest)
+
+
+        // Assert
+        assertTrue(result.isEmpty())
+    }
 
 
 }

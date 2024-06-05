@@ -69,6 +69,7 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     implementation("org.mockito:mockito-core:5.3.1")
+    testImplementation("org.mockito:mockito-core:5.3.1")
 
 
     // Room

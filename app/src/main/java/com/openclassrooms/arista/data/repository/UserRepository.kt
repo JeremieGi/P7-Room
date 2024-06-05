@@ -1,8 +1,6 @@
 package com.openclassrooms.arista.data.repository
 
 import com.openclassrooms.arista.dao.UserDao
-import com.openclassrooms.arista.data.FakeApiService
-import com.openclassrooms.arista.data.UserDto
 import com.openclassrooms.arista.domain.model.User
 import kotlinx.coroutines.flow.first
 
@@ -19,17 +17,17 @@ class UserRepository(
 //            apiService.user = user
 //        }
 
+    /**
+     * Renvoie l'utilisateur à partir de son id
+     */
     suspend fun getUserById(id : Long) : User? {
 
-       val userDto = userDao.getUserById(id).first()
-        if (userDto!=null){
-            return User.fromDto(userDto)
+        val flow = userDao.getUserById(id)
+        val user = flow.first()
+        if (user!=null){
+            return User.fromDto(user)
         }
-        return null
-//        if (usersDto.size > 0){
-//            return User.fromDto(usersDto.get(0))
-//        }
-//       return null
+        return null // Cas où la base de données est vide
 
 
     }

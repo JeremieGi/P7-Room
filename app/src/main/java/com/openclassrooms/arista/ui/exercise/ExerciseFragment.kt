@@ -31,7 +31,7 @@ class ExerciseFragment : Fragment(), DeleteExerciseInterface {
     private var _binding: FragmentExerciseBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ExerciseViewModel by viewModels()
+    private val viewModel: ExerciseViewModel by viewModels() // TODO : Approfondir cette syntaxe
     private lateinit var exerciseAdapter: ExerciseAdapter
 
 
