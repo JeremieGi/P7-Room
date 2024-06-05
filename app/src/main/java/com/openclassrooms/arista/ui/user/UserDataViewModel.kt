@@ -22,7 +22,7 @@ class UserDataViewModel @Inject constructor(
 
     // Communication avec le fragment via
     private val _userFlow = MutableStateFlow<User?>(null)
-    val userFlow: StateFlow<User?> = _userFlow.asStateFlow()
+    val userFlow: StateFlow<User?> = _userFlow.asStateFlow() // Exposé au fragment (read only)
 
     // On devrait normalement le récupérer via le bundle du fragment
     private val idCurrentUser = MainApplication.ID_CURRENT_USER
