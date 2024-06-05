@@ -6,6 +6,7 @@ import com.openclassrooms.arista.domain.usecase.GetUserUsecase
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,7 +19,7 @@ import org.mockito.MockitoAnnotations
 class GetUserUsecaseTest {
 
     @Mock
-    private lateinit var userRepository: UserRepository
+    private lateinit var mockedUserRepository: UserRepository
 
     private lateinit var getUserUsecase : GetUserUsecase
 
@@ -30,7 +31,7 @@ class GetUserUsecaseTest {
     fun setUp() {
         //MockitoAnnotations.initMocks(this)  DEPRECATED https://www.javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/MockitoAnnotations.html
         closeable = MockitoAnnotations.openMocks(this)
-        getUserUsecase = GetUserUsecase(userRepository)
+        getUserUsecase = GetUserUsecase(mockedUserRepository)
     }
 
 
@@ -48,29 +49,38 @@ class GetUserUsecaseTest {
               name = "jg",
               email = "jg@free.fr"
             )
-        Mockito.`when`(userRepository.getUserById(lIdUserTest)).thenReturn(fakeUser)
+        val fakeUserResponse = Result.success(fakeUser)
+
+        Mockito.`when`(mockedUserRepository.getUserById(lIdUserTest)).thenReturn(fakeUserResponse)
 
         // Act
         val result = getUserUsecase.execute(lIdUserTest)
 
         // Assert
-        assertEquals(fakeUser, result)
+        assertEquals(fakeUserResponse, result)
 
     }
 
+    /**
+     * Vérification de la propagation de l'exception
+     */
     @Test
-    fun userNotFind() = runBlocking {
+    fun userException() = runBlocking {
 
         // Arrange
-        val fakeUserNull : User? = null
 
-        Mockito.`when`(userRepository.getUserById(lIdUserTest)).thenReturn(fakeUserNull)
+        val sException = "Database error test"
+        val runTimeException = RuntimeException(sException)
+        val fakeUserResponse = Result.failure<User>(runTimeException)
+        Mockito.`when`(mockedUserRepository.getUserById(lIdUserTest)).thenReturn(fakeUserResponse)
 
         // Act
         val result = getUserUsecase.execute(lIdUserTest)
 
         // Assert
-        assertEquals(fakeUserNull, result)
+        assertTrue(result.isFailure)
+        assertEquals(runTimeException, result.exceptionOrNull())
+
 
     }
 

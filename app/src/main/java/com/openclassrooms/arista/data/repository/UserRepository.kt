@@ -12,15 +12,16 @@ class UserRepository(
     /**
      * Renvoie l'utilisateur à partir de son id
      */
-    suspend fun getUserById(id : Long) : User? {
+    suspend fun getUserById(id : Long) : Result<User> {
 
-        val flow = userDao.getUserById(id)
-        val userDto = flow.first()
-        if (userDto!=null){ // TODO : Ici warning : Condition 'userDto!=null' is always 'true' mais çà arrive avec une base de données pas encore créée
-            return User.fromDto(userDto)
+        return try {
+            val userDto = userDao.getUserById(id).first()
+            // Ici userDto peut-être null si la base de données n'a pas été créée (Si c'est le cas, l'exception sera catchée)
+            val userModel = User.fromDto(userDto)
+            Result.success(userModel)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
-        return null // Cas où la base de données n'est pas créée
-
 
     }
 

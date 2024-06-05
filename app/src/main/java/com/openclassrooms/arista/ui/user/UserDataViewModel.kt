@@ -35,12 +35,19 @@ class UserDataViewModel @Inject constructor(
 
         // Exécution du UseCase dans une coroutine
         viewModelScope.launch(Dispatchers.IO) {
-            val user = getUserUsecase.execute(id)
-            if (user!=null) {
-                _userFlow.value = user
-            }
-            else{
-                Log.e("JG","Database vide")
+//            val user = getUserUsecase.execute(id)
+//            if (user!=null) {
+//                _userFlow.value = user
+//            }
+//            else{
+//                Log.e("JG","Database vide")
+//            }
+
+            val result = getUserUsecase.execute(id)
+            result.onSuccess {
+                _userFlow.value = it
+            }.onFailure {
+                Log.e("JG","Error catchee : &${it.localizedMessage}")
             }
 
         }

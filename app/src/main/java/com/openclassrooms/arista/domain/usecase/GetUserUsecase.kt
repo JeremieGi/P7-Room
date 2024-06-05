@@ -10,7 +10,7 @@ class GetUserUsecase @Inject constructor(
     private val userRepository: UserRepository
 ) {
 
-    suspend fun execute(id : Long): User? {
+    suspend fun execute(id : Long): Result<User> {
         return userRepository.getUserById(id)
     }
 
