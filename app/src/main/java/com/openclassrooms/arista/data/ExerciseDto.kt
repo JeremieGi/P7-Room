@@ -4,7 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.openclassrooms.arista.data.UserDto
+
+// DTA = Data Transfer Object (entre cet object et la table exercise de la base de données)
 
 @Entity(
     tableName = "exercise",

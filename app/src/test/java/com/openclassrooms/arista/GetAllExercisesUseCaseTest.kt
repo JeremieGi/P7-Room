@@ -20,8 +20,12 @@ import java.time.LocalDateTime
 @RunWith(JUnit4::class)
 class GetAllExercisesUseCaseTest {
 
+    /**
+     * En fait, les uses cases ne font que passe-plat, donc l'intérêt de ces tests unitaires est assez limités à cet instant
+     */
+
     @Mock
-    private lateinit var exerciseRepository: ExerciseRepository
+    private lateinit var mockedExerciseRepository: ExerciseRepository
 
     private lateinit var getAllExercisesUseCase: GetAllExercisesUseCase
 
@@ -34,7 +38,7 @@ class GetAllExercisesUseCaseTest {
     fun setUp() {
         //MockitoAnnotations.initMocks(this)  DEPRECATED https://www.javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/MockitoAnnotations.html
         closeable = MockitoAnnotations.openMocks(this)
-        getAllExercisesUseCase = GetAllExercisesUseCase(exerciseRepository)
+        getAllExercisesUseCase = GetAllExercisesUseCase(mockedExerciseRepository)
     }
 
 
@@ -62,7 +66,7 @@ class GetAllExercisesUseCaseTest {
                 intensity = 7
             )
         )
-        Mockito.`when`(exerciseRepository.getExercisesOfUser(lIdUserTest)).thenReturn(fakeExercises)
+        Mockito.`when`(mockedExerciseRepository.getExercisesOfUser(lIdUserTest)).thenReturn(fakeExercises)
 
 
         // Act
@@ -77,7 +81,7 @@ class GetAllExercisesUseCaseTest {
     @Test
     fun emptyRepository() = runBlocking {
         // Arrange
-        Mockito.`when`(exerciseRepository.getExercisesOfUser(lIdUserTest)).thenReturn(emptyList())
+        Mockito.`when`(mockedExerciseRepository.getExercisesOfUser(lIdUserTest)).thenReturn(emptyList())
 
 
         // Act

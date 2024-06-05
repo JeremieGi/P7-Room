@@ -31,7 +31,14 @@ class ExerciseFragment : Fragment(), DeleteExerciseInterface {
     private var _binding: FragmentExerciseBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ExerciseViewModel by viewModels() // TODO : Approfondir cette syntaxe
+    // Délegation : ExerciseViewModel sera un objet créé par défaut avec en paramètre du constructeur un viewModels
+    /**
+     * En résumé, l'héritage est un mécanisme de réutilisation du code basé sur la relation "est un" entre les classes,
+     * tandis que la délégation est un mécanisme de réutilisation du code basé sur la relation "a un" entre les classes.
+     * Chacun a ses avantages et ses cas d'utilisation appropriés, et le choix entre les deux dépend souvent de la structure et de la logique de votre application.
+     */
+    private val viewModel: ExerciseViewModel by viewModels()
+
     private lateinit var exerciseAdapter: ExerciseAdapter
 
 

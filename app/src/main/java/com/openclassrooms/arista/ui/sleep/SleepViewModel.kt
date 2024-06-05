@@ -21,7 +21,7 @@ class SleepViewModel @Inject constructor(private val getAllSleepsUseCase: GetAll
     val sleeps: StateFlow<List<Sleep>> = _sleeps.asStateFlow()
 
     // On devrait normalement le récupérer via le bundle du fragment
-    val idCurrentUser = MainApplication.ID_CURRENT_USER
+    private val idCurrentUser = MainApplication.ID_CURRENT_USER
 
     fun fetchSleeps() {
 

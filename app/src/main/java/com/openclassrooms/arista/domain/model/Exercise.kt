@@ -12,6 +12,9 @@ data class Exercise(
     var intensity: Int
 ) {
 
+    /**
+     * Convert model object to dto
+     */
     fun toDto(userId : Long): ExerciseDto {
 
         return ExerciseDto(
@@ -26,6 +29,10 @@ data class Exercise(
 
 
     companion object {
+
+        /**
+         * Convert Dto to model object
+         */
         fun fromDto(exerciceDto: ExerciseDto) : Exercise {
 
             return Exercise(

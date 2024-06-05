@@ -15,11 +15,11 @@ class UserRepository(
     suspend fun getUserById(id : Long) : User? {
 
         val flow = userDao.getUserById(id)
-        val user = flow.first()
-        if (user!=null){
-            return User.fromDto(user)
+        val userDto = flow.first()
+        if (userDto!=null){ // TODO : Ici warning : Condition 'userDto!=null' is always 'true' mais çà arrive avec une base de données pas encore créée
+            return User.fromDto(userDto)
         }
-        return null // Cas où la base de données est vide
+        return null // Cas où la base de données n'est pas créée
 
 
     }

@@ -3,7 +3,6 @@ package com.openclassrooms.arista.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.openclassrooms.arista.domain.model.User
 
 @Entity(tableName = "user")
 data class UserDto(

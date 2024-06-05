@@ -35,7 +35,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         suspend fun initDatabase(userDao : UserDao, sleepDao: SleepDao) {
 
-            // Utilisateur de test
+            // 2 utilisateurs de test pour vérifier que les appels au repository renvoie des données filtrées par utilisateur
             val nIDUserTest = userDao.insertUser(
                     UserDto(sName="Jeremie", sEmail = "jg@free.fr", sPassword = "123")
             )
@@ -43,6 +43,7 @@ abstract class AppDatabase : RoomDatabase() {
                 UserDto(sName="Geraldine", sEmail = "gg@free.fr", sPassword = "123")
             )
 
+            // 2 sommeils pour l'utilisateur 1
             sleepDao.insertSleep(
                 SleepDto(
                     startTime = LocalDateTime.now().minusDays(1).atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
@@ -61,6 +62,7 @@ abstract class AppDatabase : RoomDatabase() {
                 )
             )
 
+            // 2 sommeils pour l'utilisateur 2
             sleepDao.insertSleep(
                 SleepDto(
                     startTime = LocalDateTime.now().minusDays(1).atZone(ZoneOffset.UTC).toInstant().toEpochMilli(),
@@ -83,7 +85,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
     companion object {
-        @Volatile // TODO : voir cette annotation
+        @Volatile // utilisée en Kotlin pour indiquer qu'une propriété peut être modifiée par plusieurs threads
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context, coroutineScope: CoroutineScope): AppDatabase {

@@ -5,8 +5,8 @@ import com.openclassrooms.arista.domain.model.ExerciseCategory
 import com.openclassrooms.arista.domain.model.Sleep
 import com.openclassrooms.arista.domain.model.User
 import java.time.LocalDateTime
-import java.util.Arrays
-import java.util.Optional
+
+// Cette API n'est plus utilisée suite à la réalisation de l'exercice
 
 class FakeApiService {
 

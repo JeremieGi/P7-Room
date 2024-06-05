@@ -25,7 +25,7 @@ class ExerciseViewModel @Inject constructor(
     private val _exercisesFlow = MutableStateFlow<List<Exercise>>(emptyList())
     val exercisesFlow: StateFlow<List<Exercise>> = _exercisesFlow.asStateFlow()
 
-    val idCurrentUser = MainApplication.ID_CURRENT_USER
+    private val idCurrentUser = MainApplication.ID_CURRENT_USER
 
     init {
         loadAllExercises()

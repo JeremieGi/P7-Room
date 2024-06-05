@@ -9,6 +9,10 @@ data class User(
 ){
 
     companion object {
+
+        /**
+         * Convert dto object to model object
+         */
         fun fromDto(userDto: UserDto) : User {
 
             return User(
