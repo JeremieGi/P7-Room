@@ -3,7 +3,7 @@ package com.openclassrooms.arista.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.openclassrooms.arista.data.SleepDto
+import com.openclassrooms.arista.data.entity.SleepDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao

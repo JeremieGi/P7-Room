@@ -1,6 +1,6 @@
 package com.openclassrooms.arista.domain.model
 
-import com.openclassrooms.arista.data.ExerciseDto
+import com.openclassrooms.arista.data.entity.ExerciseDto
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -28,25 +28,4 @@ data class Exercise(
     }
 
 
-    companion object {
-
-        /**
-         * Convert Dto to model object
-         */
-        fun fromDto(exerciceDto: ExerciseDto) : Exercise {
-
-            return Exercise(
-
-                id=exerciceDto.id,
-
-                startTime= LocalDateTime.ofEpochSecond(exerciceDto.startTime*1000, 0, ZoneOffset.UTC),
-
-                duration=exerciceDto.duration,
-
-                category=enumValueOf(exerciceDto.category),
-
-                intensity=exerciceDto.intensity
-            )
-        }
-    }
 }

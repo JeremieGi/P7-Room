@@ -1,8 +1,9 @@
-package com.openclassrooms.arista.data
+package com.openclassrooms.arista.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.openclassrooms.arista.domain.model.User
 
 @Entity(tableName = "user")
 data class UserDto(
@@ -20,4 +21,14 @@ data class UserDto(
     @ColumnInfo(name = "password")
     var sPassword : String
 
-)
+) {
+    /**
+     * Convert dto object to model object
+     */
+    fun toModelUser(): User {
+        return User(
+            name = this.sName,
+            email = this.sEmail
+        )
+    }
+}

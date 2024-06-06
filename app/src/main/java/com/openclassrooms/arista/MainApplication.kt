@@ -23,6 +23,6 @@ class MainApplication : Application(){
 
         // Je fais çà pour qu'au 1er lancement, la base de données soit directement créée
         // ainsi le user 1 est trouvé dès le 1er lancement
-        AppDatabase.getDatabase(this, CoroutineScope(Dispatchers.Default))
+       AppDatabase.getDatabase(this, CoroutineScope(Dispatchers.Default))
     }
 }

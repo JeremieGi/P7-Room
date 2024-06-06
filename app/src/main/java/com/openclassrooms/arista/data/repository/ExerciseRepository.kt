@@ -22,14 +22,23 @@ class ExerciseRepository(
         return exerciseDao.getExercisesOfUser(idUser)
             .first() // Collect the first emission of the Flow
             .map {
-                Exercise.fromDto(it)  // Convert every DTO in Exercise // it est de type ExerciseDto ici
+                //Exercise.fromDto(it)  // Convert every DTO in Exercise // it est de type ExerciseDto ici
+                it.toModelExercice()
             }
     }
 
     // Add a new exercise
     suspend fun addExercise(exercise: Exercise, idUser : Long) {
-        //apiService.addExercise(exercise)
-        exerciseDao.insertExercise(exercise.toDto(idUser))
+
+        // TODO : Ici j'utilise directement les Exceptions (pas la classe Result)
+        try{
+            exerciseDao.insertExercise(exercise.toDto(idUser))
+        }
+        catch (e: Exception){
+            // Cette exception n'a pas de valeur ajoutée réelle mais on pourrait gérer nos propres classes d'exception ici
+            throw Exception("Exception lors du insert exercice : ${e.localizedMessage}")
+        }
+
     }
 
 

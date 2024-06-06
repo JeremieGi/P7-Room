@@ -8,6 +8,7 @@ class AddNewExerciseUseCase @Inject constructor(
     private val exerciseRepository: ExerciseRepository
 ) {
     suspend fun execute(exercise: Exercise, idUser : Long) {
+        // L'exception peut se propoger ici
         exerciseRepository.addExercise(exercise,idUser)
     }
 }

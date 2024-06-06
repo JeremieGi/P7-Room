@@ -48,7 +48,6 @@ class ExerciseFragment : Fragment(), DeleteExerciseInterface {
         savedInstanceState: Bundle?
     ): View {
 
-
         _binding = FragmentExerciseBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -56,13 +55,10 @@ class ExerciseFragment : Fragment(), DeleteExerciseInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
         setupRecyclerView()
         setupFab()
         observeExercises()
-
+        observeErrors()
     }
 
     private fun setupRecyclerView() {
@@ -71,10 +67,30 @@ class ExerciseFragment : Fragment(), DeleteExerciseInterface {
         binding.exerciseRecyclerview.adapter = exerciseAdapter
     }
 
+    /**
+     * observe data
+     */
     private fun observeExercises() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.exercisesFlow.collect { exercises ->
                 exerciseAdapter.submitList(exercises)
+            }
+        }
+    }
+
+    /**
+     * Observe error
+     */
+    private fun observeErrors() {
+        // Affichage des erreurs via le flow dédié
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.errorFlow .collect { error ->
+
+                if (error!=null){ // A la création du Flow, on envoie null (voir code dans ViewModel)
+                    // Affichage d'un Toast
+                    Toast.makeText(requireContext(), "Error \n $error", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
     }

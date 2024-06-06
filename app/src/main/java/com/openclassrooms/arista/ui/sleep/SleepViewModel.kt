@@ -20,16 +20,27 @@ class SleepViewModel @Inject constructor(private val getAllSleepsUseCase: GetAll
     private val _sleeps = MutableStateFlow<List<Sleep>>(emptyList())
     val sleeps: StateFlow<List<Sleep>> = _sleeps.asStateFlow()
 
+    // StateFlow dédié aux erreurs
+    private val _errorFlow  = MutableStateFlow<String?>(null)
+    val errorFlow : StateFlow<String?> get() = _errorFlow
+
     // On devrait normalement le récupérer via le bundle du fragment
     private val idCurrentUser = MainApplication.ID_CURRENT_USER
 
-    fun fetchSleeps() {
+    fun getSleeps() {
 
         // Depuis une coroutine
         viewModelScope.launch(Dispatchers.IO) {
-            // Alimente le StateFlow
-            val sleepList = getAllSleepsUseCase.execute(idCurrentUser)
-            _sleeps.value = sleepList
+
+            try {
+                // Alimente le StateFlow
+                val sleepList = getAllSleepsUseCase.execute(idCurrentUser)
+                _sleeps.value = sleepList
+            }
+            catch (e : Exception){
+                _errorFlow.value = e.message
+            }
+
         }
 
     }

@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.openclassrooms.arista.data.ExerciseDto
-import com.openclassrooms.arista.data.SleepDto
-import com.openclassrooms.arista.data.UserDto
+import com.openclassrooms.arista.data.entity.ExerciseDto
+import com.openclassrooms.arista.data.entity.SleepDto
+import com.openclassrooms.arista.data.entity.UserDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime

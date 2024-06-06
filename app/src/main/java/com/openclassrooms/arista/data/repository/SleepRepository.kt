@@ -18,12 +18,15 @@ class SleepRepository(
 //
 //    }
 
+    /**
+     * Renvoie tous les sommeils d'un user donné
+     */
     suspend fun sleepsOfUser(idUser : Long): List<Sleep> {
 
         return sleepDAO.getSleepsOfUser(idUser)
             .first() // Collect the first emission of the Flow
             .map {
-                Sleep.fromDto(it) // Convert every DTO in Sleep // it est de type SleepDto ici
+                it.toModelSleep() // Convert every DTO in Sleep // it est de type SleepDto ici
             }
 
     }

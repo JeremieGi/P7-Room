@@ -25,27 +25,42 @@ class ExerciseViewModel @Inject constructor(
     private val _exercisesFlow = MutableStateFlow<List<Exercise>>(emptyList())
     val exercisesFlow: StateFlow<List<Exercise>> = _exercisesFlow.asStateFlow()
 
+    // StateFlow dédié aux erreurs
+    private val _errorFlow  = MutableStateFlow<String?>(null)
+    val errorFlow : StateFlow<String?> get() = _errorFlow
+
     private val idCurrentUser = MainApplication.ID_CURRENT_USER
 
     init {
         loadAllExercises()
     }
 
-
     fun deleteExercise(exercise: Exercise) {
 
-        viewModelScope.launch(Dispatchers.IO) {
-            deleteExerciseUseCase.execute(exercise)
-            loadAllExercises()
+        try {
+            viewModelScope.launch(Dispatchers.IO) {
+                deleteExerciseUseCase.execute(exercise)
+                loadAllExercises()
+            }
         }
+        catch (e : Exception){
+            _errorFlow.value = e.message
+        }
+
 
     }
 
     private fun loadAllExercises() {
 
         viewModelScope.launch(Dispatchers.IO) {
-            val exercises = getAllExercisesUseCase.execute(idCurrentUser)
-            _exercisesFlow.value = exercises
+
+            try {
+                val exercises = getAllExercisesUseCase.execute(idCurrentUser)
+                _exercisesFlow.value = exercises
+            }
+            catch (e : Exception){
+                _errorFlow.value = e.message
+            }
         }
 
     }
@@ -53,8 +68,16 @@ class ExerciseViewModel @Inject constructor(
     fun addNewExercise(exercise: Exercise) {
 
         viewModelScope.launch(Dispatchers.IO) {
-            addNewExerciseUseCase.execute(exercise, idCurrentUser)
-            loadAllExercises()
+
+            try {
+                addNewExerciseUseCase.execute(exercise, idCurrentUser)
+                loadAllExercises()
+            }
+            catch (e : Exception){
+                _errorFlow.value = e.message
+            }
+
+
         }
 
     }

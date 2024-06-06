@@ -4,6 +4,7 @@ import com.openclassrooms.arista.data.repository.ExerciseRepository
 import com.openclassrooms.arista.domain.model.Exercise
 import com.openclassrooms.arista.domain.model.ExerciseCategory
 import com.openclassrooms.arista.domain.usecase.AddNewExerciseUseCase
+import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
@@ -42,7 +43,7 @@ class AddNewExerciseUseCaseTest {
     }
 
     /**
-     * Vérification de l'appel au repository
+     * Vérification de la propagation de l'exception depuis le repository
      */
     @Test
     fun classic() = runBlocking{
@@ -55,12 +56,41 @@ class AddNewExerciseUseCaseTest {
             intensity = 10
         )
 
-        // When
-        addNewExerciseUseCase.execute(exerciceToAdd,lIdUserTest)
+        val sExceptionInfoTest = "Exception info test"
+
+        // Le repository mocké va lever une Exception
+        Mockito.`when`(mockedExerciseRepository.addExercise(exerciceToAdd,lIdUserTest)).thenThrow(RuntimeException(sExceptionInfoTest))
+
+        // On vérifie qu'elle soit bien propagée par le useCase
+        try{
+            addNewExerciseUseCase.execute(exerciceToAdd,lIdUserTest)
+            // TODO : Syntaxe plus élégante que assertEquals("1","2" ?
+            assert(false) { "une exception aurait due être propagée ici" }
+        }
+        catch (e : Exception){
+            assertEquals(e.localizedMessage,sExceptionInfoTest)
+        }
 
         // Then
         // Vérification que la méthode add du repository a été appelée
         Mockito.verify(mockedExerciseRepository).addExercise(exerciceToAdd,lIdUserTest)
+
+
+    }
+
+    @Test
+    fun exception() = runBlocking{
+
+        // Given
+        val exerciceToAdd = Exercise(
+            startTime = LocalDateTime.now().plusHours(3),
+            duration = 60,
+            category = ExerciseCategory.Riding,
+            intensity = 10
+        )
+
+        // When
+        addNewExerciseUseCase.execute(exerciceToAdd,lIdUserTest)
 
 
     }
