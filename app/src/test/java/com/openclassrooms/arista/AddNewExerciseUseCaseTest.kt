@@ -46,7 +46,7 @@ class AddNewExerciseUseCaseTest {
      * Vérification de la propagation de l'exception depuis le repository
      */
     @Test
-    fun classic() = runBlocking{
+    fun exception() = runBlocking{
 
         // Given
         val exerciceToAdd = Exercise(
@@ -64,7 +64,6 @@ class AddNewExerciseUseCaseTest {
         // On vérifie qu'elle soit bien propagée par le useCase
         try{
             addNewExerciseUseCase.execute(exerciceToAdd,lIdUserTest)
-            // TODO : Syntaxe plus élégante que assertEquals("1","2" ?
             assert(false) { "une exception aurait due être propagée ici" }
         }
         catch (e : Exception){
@@ -79,7 +78,7 @@ class AddNewExerciseUseCaseTest {
     }
 
     @Test
-    fun exception() = runBlocking{
+    fun test() = runBlocking{
 
         // Given
         val exerciceToAdd = Exercise(

@@ -81,6 +81,7 @@ abstract class AppDatabase : RoomDatabase() {
                 )
             )
 
+
         }
         }
 
@@ -99,8 +100,10 @@ abstract class AppDatabase : RoomDatabase() {
                     .addCallback(AppDatabaseCallback(coroutineScope))
                     .build()
                 INSTANCE = instance
+
                 instance
             }
         }
     }
 }
+

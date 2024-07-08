@@ -1,7 +1,6 @@
 package com.openclassrooms.arista.ui.user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,13 +39,13 @@ class UserDataFragment : Fragment() {
             viewModel.userFlow.collect { resultUser: Result<User>? ->
                 resultUser?.let {
 
-                    // TODO : A montrer : Gestion du try catch via l'objet Result
+                    // Gestion du try catch via l'objet Result
                     // Il y a plusieurs façon de faire, quelle est la meilleure ?
                     // - Ici, j'utilise une variable de StateFlow<Result<User>?> pour communiquer entre le ViewModel et le fragment (mais ca pollue un peu le code je trouve)
                     // - je pourrais aussi créer un autre flow dédié au erreur (ce que j'ai fait pour les exercices et les sommeils
+                    // - je peux aussi créé un Flow d'un objet type APi Result (ce que je fais actuellement pour l'appli RH)
 
-                    // TODO : Je me pose aussi la question de la couche à choisir pour gérer les exceptions :
-                    //  Je les ai gérées au plus bas dès le Repository (je me dis que mais on pourrait les laissser remonter jusqu'aux UseCase ou au ViewModel
+                    // A gérer au plus bas dès le Repository
 
                     resultUser.onSuccess {
                         binding.etName.setText(it.name)

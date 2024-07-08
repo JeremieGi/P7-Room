@@ -30,7 +30,7 @@ class ExerciseRepository(
     // Add a new exercise
     suspend fun addExercise(exercise: Exercise, idUser : Long) {
 
-        // TODO : Ici j'utilise directement les Exceptions (pas la classe Result)
+        // Ici j'utilise directement les Exceptions (pas la classe Result)
         try{
             exerciseDao.insertExercise(exercise.toDto(idUser))
         }
